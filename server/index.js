@@ -23,12 +23,15 @@ require("./config/database").connect();
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
+
+const allowedOrigins = ["https://learn-and-spark.vercel.app"];
 app.use(
 	cors({
-		origin: '*' ,
+		origin: allowedOrigins,
 		credentials:true,
 	})
 )
+app.options("*", cors());
 
 app.use(
 	fileUpload({
