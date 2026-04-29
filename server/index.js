@@ -24,14 +24,24 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
-const allowedOrigins = ["https://learn-and-spark.vercel.app"];
+const allowedOrigins = ["https://learn-and-spark-git-main-sonujh07s-projects.vercel.app"];
 app.use(
-	cors({
-		origin: allowedOrigins,
-		credentials:true,
-	})
-)
-app.options("*", cors());
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
+
+app.options("*", cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 
 app.use(
 	fileUpload({
