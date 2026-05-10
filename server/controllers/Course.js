@@ -6,11 +6,15 @@ const User = require("../models/User")
 const { uploadImageToCloudinary } = require("../utils/imageUploader")
 const CourseProgress = require("../models/CourseProgress")
 const { convertSecondsToDuration } = require("../utils/secToDuration")
+
+
 // Function to create a new course
 exports.createCourse = async (req, res) => {
   try {
     // Get user ID from request object
     const userId = req.user.id
+
+    console.log("While create the course error", req.body)
 
     // Get all required fields from request body
     let {
@@ -25,14 +29,30 @@ exports.createCourse = async (req, res) => {
     } = req.body
     // Get thumbnail image from request files
     const thumbnail = req.files.thumbnailImage
+     
+    console.log("Tagggg typeeee  Before parse", typeof _tag)
 
     // Convert the tag and instructions from stringified Array to Array
-    const tag = JSON.parse(_tag)
-    const instructions = JSON.parse(_instructions)
+    let tag;
+        try {
+            tag = JSON.parse(_tag);
+        } catch (e) {
+            tag = _tag; // Fallback if it's already a string or badly formatted
+        }
+    console.log("Tagggg typeeee after parse taggg", typeof tag)
 
-    console.log("tag", tag)
+     console.log("Taggg value", tag)
+
+   let instructions;
+          try {
+              instructions = JSON.parse(_instructions);
+          } catch (e) {
+              instructions = _instructions;
+          }
+
+   
     console.log("instructions", instructions)
-
+ 
     // Check if any of the required fields are missing
     if (
       !courseName ||
@@ -73,11 +93,17 @@ exports.createCourse = async (req, res) => {
       })
     }
     // Upload the Thumbnail to Cloudinary
+
+  
+
+    console.log(thumbnail)
+
     const thumbnailImage = await uploadImageToCloudinary(
       thumbnail,
       process.env.FOLDER_NAME
     )
     console.log(thumbnailImage)
+
     // Create a new course with the given details
     const newCourse = await Course.create({
       courseName,
@@ -126,7 +152,7 @@ exports.createCourse = async (req, res) => {
     console.error(error)
     res.status(500).json({
       success: false,
-      message: "Failed to create course",
+      message: "Failed to create courseeee",
       error: error.message,
     })
   }
@@ -451,7 +477,7 @@ exports.deleteCourse = async (req, res) => {
     }
 
     // Unenroll students from the course
-    const studentsEnrolled = course.studentsEnroled
+    const studentsEnrolled = course.studentsEnroled || []
     for (const studentId of studentsEnrolled) {
       await User.findByIdAndUpdate(studentId, {
         $pull: { courses: courseId },

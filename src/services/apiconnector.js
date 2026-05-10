@@ -3,9 +3,9 @@ import axios from "axios";
 export const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL || "http://localhost:8000/api/v1", // Use environment variable for production
   withCredentials: true, // Allow credentials (cookies, auth tokens)
-  headers: {
-    "Content-Type": "application/json",
-  },
+  // headers: {
+  //   "Content-Type": "application/json",
+  // },
 });
 
 export const apiConnector = async (method, url, bodyData, headers, params) => {
@@ -18,8 +18,8 @@ export const apiConnector = async (method, url, bodyData, headers, params) => {
         params: params ? params : null,
       });
 
-    console.log("RESPONSE:::::::",response)
-    return response; // Return the successful response
+    // console.log("RESPONSE:::::::",response)
+    return response; 
     
   } catch (error) {
     console.error("API ERROR:", error?.response?.data || error.message);

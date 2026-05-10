@@ -1,3 +1,6 @@
+const dotenv = require("dotenv");
+dotenv.config();
+
 const express = require("express");
 const app = express();
 
@@ -11,10 +14,9 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const {cloudinaryConnect } = require("./config/cloudinary");
 const fileUpload = require("express-fileupload");
-const dotenv = require("dotenv");
 
-dotenv.config();
-const PORT = process.env.PORT || 8000;
+
+const PORT = process.env.PORT || 7000;
 
 //database connect
 require("./config/database").connect();
@@ -24,24 +26,35 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
-const allowedOrigins = ["https://learn-and-spark-git-main-sonujh07s-projects.vercel.app"];
+
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: "http://localhost:3000",
     credentials: true,
   })
 );
 
-app.options("*", cors({
-  origin: allowedOrigins,
-  credentials: true
-}));
+
+
+
+// const allowedOrigins = ["https://learn-and-spark-git-main-sonujh07s-projects.vercel.app"];
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error("Not allowed by CORS"));
+//       }
+//     },
+//     credentials: true,
+//   })
+// );
+
+// app.options("*", cors({
+//   origin: allowedOrigins,
+//   credentials: true
+// }));
 
 app.use(
 	fileUpload({

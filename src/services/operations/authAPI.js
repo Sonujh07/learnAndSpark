@@ -14,7 +14,7 @@ const {
   RESETPASSWORD_API,
 } = endpoints
 
-console.log("SENDOTP_API:", SENDOTP_API);
+// console.log("SENDOTP_API:", SENDOTP_API);
 
 export function sendOtp(email, navigate) {
   return async (dispatch) => {

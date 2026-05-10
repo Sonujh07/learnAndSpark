@@ -33,6 +33,7 @@ const Catalog = () => {
             try{
                 const res = await getCatalogaPageData(categoryId);
                 console.log("PRinting res: ", res);
+                console.log("All Catalog Name:", res.data.data)
                 setCatalogPageData(res);
             }
             catch(error) {

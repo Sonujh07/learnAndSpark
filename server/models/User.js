@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 			// enum: ["Student", "Instructor","Admin"],
-			enum: ["Student","Instructor"]
+			enum: ["Student","Instructor","Admin"]
 			
 			
 		},

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+ import { useEffect, useState } from "react"
 import { AiOutlineMenu, AiOutlineShoppingCart } from "react-icons/ai"
 import { BsChevronDown } from "react-icons/bs"
 import { useSelector } from "react-redux"
@@ -11,7 +11,7 @@ import { categories } from "../../services/apis"
 import { ACCOUNT_TYPE } from "../../utils/constants"
 import ProfileDropdown from "../core/Auth/ProfileDropDown"
 
-function Navbar() {
+function Navbar() { 
   const { token } = useSelector((state) => state.auth)
   const { user } = useSelector((state) => state.profile)
   const { totalItems } = useSelector((state) => state.cart)
@@ -26,7 +26,8 @@ function Navbar() {
       try {
         const res = await apiConnector("GET", categories.CATEGORIES_API)
 
-        console.log("getting the sublinks results:", res)
+        // console.log("getting the sublinks results:", res)
+        // console.log("getting the sublinks results:::::::", res.data.data)
         
         setSubLinks(res.data.data)
       } catch (error) {
@@ -65,6 +66,7 @@ function Navbar() {
                         matchRoute("/catalog/:catalogName")
                           ? "text-yellow-25"
                           : "text-richblack-25"
+
                       }`}
                     >
                       <p>{link.title}</p>

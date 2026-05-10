@@ -93,26 +93,32 @@ export default function Upload({
             )}
           </div>
         ) : (
-          <div
-            className="flex w-full flex-col items-center p-6"
-            {...getRootProps()}
-          >
-            <input {...getInputProps()} ref={inputRef} />
-            <div className="grid aspect-square w-14 place-items-center rounded-full bg-pure-greys-800">
-              <FiUploadCloud className="text-2xl text-yellow-50" />
-            </div>
-            <p className="mt-2 max-w-[200px] text-center text-sm text-richblack-200">
-              Drag and drop an {!video ? "image" : "video"}, or click to{" "}
-              <span className="font-semibold text-yellow-50">Browse</span> a
-              file
-            </p>
-            <ul className="mt-10 flex list-disc justify-between space-x-12 text-center  text-xs text-richblack-200">
-              <li>Aspect ratio 16:9</li>
-              <li>Recommended size 1024x576</li>
-            </ul>
+            <div
+                className="flex w-full flex-col items-center p-6"
+                {...getRootProps()}
+              >
+                <input {...getInputProps()} />
+
+                <div className="grid aspect-square w-14 place-items-center rounded-full bg-pure-greys-800">
+                  <FiUploadCloud className="text-2xl text-yellow-50" />
+                </div>
+
+                <p className="mt-2 max-w-[200px] text-center text-sm text-richblack-200">
+                  Drag and drop an {!video ? "image" : "video"}, or click to{" "}
+                  <span className="font-semibold text-yellow-50">Browse</span> a file
+                </p>
+
+                    <ul className="mt-10 flex list-disc justify-between space-x-12 text-center  text-xs text-richblack-200">
+                            <li>Aspect ratio 16:9</li>
+                            <li>Recommended size 1024x576</li>
+                  </ul>
           </div>
+
+
         )}
       </div>
+
+
       {errors[name] && (
         <span className="ml-2 text-xs tracking-wide text-pink-200">
           {label} is required

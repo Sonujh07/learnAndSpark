@@ -1,5 +1,6 @@
 const { Mongoose } = require("mongoose");
 const Category = require("../models/Category");
+
 function getRandomInt(max) {
     return Math.floor(Math.random() * max)
   }
@@ -23,7 +24,7 @@ exports.createCategory = async (req, res) => {
 		});
 	} catch (error) {
 		return res.status(500).json({
-			success: true,
+			success: false,
 			message: error.message,
 		});
 	}
