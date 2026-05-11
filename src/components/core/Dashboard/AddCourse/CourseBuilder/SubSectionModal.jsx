@@ -27,9 +27,7 @@ export default function SubSectionModal({
     getValues,
   } = useForm()
 
-  // console.log("view", view)
-  // console.log("edit", edit)
-  // console.log("add", add)
+
 
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
@@ -43,7 +41,7 @@ export default function SubSectionModal({
       setValue("lectureDesc", modalData.description)
       setValue("lectureVideo", modalData.videoUrl)
     }
-  }, [])
+  }, [edit, modalData, setValue, view])
 
   // detect whether form is updated or not
   const isFormUpdated = () => {

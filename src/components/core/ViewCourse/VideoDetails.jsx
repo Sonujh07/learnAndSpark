@@ -49,6 +49,7 @@ const VideoDetails = () => {
      courseEntireData,
      location.pathname,courseId,
      sectionId,
+     navigate,
      subSectionId,
      ])
 

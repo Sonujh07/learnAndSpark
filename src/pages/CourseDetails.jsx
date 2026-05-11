@@ -101,6 +101,8 @@ function CourseDetails() {
     createdAt,
   } = response.data?.courseDetails
 
+  console.log("course_id ", course_id)
+
   const handleBuyCourse = () => {
     if (token) {
       buyCourse(token, [courseId], user, navigate, dispatch)

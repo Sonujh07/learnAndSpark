@@ -211,11 +211,11 @@ exports.getEnrolledCourses = async (req, res) => {
 
 exports.instructorDashboard = async (req, res) => {
   try {
-    const courseDetails = await Course.find({ instructor: req.user.id })
+    const courseDetails = await Course.find({ instructor: req.user?.id }) || []
 
     const courseData = courseDetails.map((course) => {
-      const totalStudentsEnrolled = course.studentsEnroled.length
-      const totalAmountGenerated = totalStudentsEnrolled * course.price
+      const totalStudentsEnrolled = course.studentsEnroled?.length || 0
+      const totalAmountGenerated = totalStudentsEnrolled * (Number(course.price) || 0)
 
       // Create a new object with the additional fields
       const courseDataWithStats = {

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import ProgressBar from "@ramonak/react-progress-bar"
-import { BiDotsVerticalRounded } from "react-icons/bi"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
@@ -22,7 +21,7 @@ export default function EnrolledCourses() {
   };
   useEffect(() => {
     getEnrolledCourses();
-  }, [])
+  }, [getEnrolledCourses])
 
   return (
     <>
