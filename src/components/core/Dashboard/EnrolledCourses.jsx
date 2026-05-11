@@ -10,18 +10,24 @@ export default function EnrolledCourses() {
   const navigate = useNavigate()
 
   const [enrolledCourses, setEnrolledCourses] = useState(null)
+ 
+
+  useEffect(() => {
   const getEnrolledCourses = async () => {
     try {
-      const res = await getUserEnrolledCourses(token);
-
-      setEnrolledCourses(res);
+      const res = await getUserEnrolledCourses(token)
+      setEnrolledCourses(res)
     } catch (error) {
       console.log("Could not fetch enrolled courses.")
     }
-  };
-  useEffect(() => {
-    getEnrolledCourses();
-  }, [getEnrolledCourses])
+  }
+
+  if (token) {
+    getEnrolledCourses()
+  }
+}, [token])
+
+
 
   return (
     <>
@@ -53,11 +59,16 @@ export default function EnrolledCourses() {
             >
               <div
                 className="flex w-[45%] cursor-pointer items-center gap-4 px-5 py-3"
-                onClick={() => {
-                  navigate(
-                    `/view-course/${course?._id}/section/${course.courseContent?.[0]?._id}/sub-section/${course.courseContent?.[0]?.subSection?.[0]?._id}`
-                  )
-                }}
+               onClick={() => {
+                    const sectionId = course?.courseContent?.[0]?._id
+                    const subSectionId = course?.courseContent?.[0]?.subSection?.[0]?._id
+
+                    if (!sectionId || !subSectionId) return
+
+                    navigate(
+                      `/view-course/${course?._id}/section/${sectionId}/sub-section/${subSectionId}`
+                    )
+                  }}
               >
                 <img
                   src={course.thumbnail}
@@ -67,7 +78,7 @@ export default function EnrolledCourses() {
                 <div className="flex max-w-xs flex-col gap-2">
                   <p className="font-semibold">{course.courseName}</p>
                   <p className="text-xs text-richblack-300">
-                    {course.courseDescription.length > 50
+                    {course.courseDescription?.length > 50
                       ? `${course.courseDescription.slice(0, 50)}...`
                       : course.courseDescription}
                   </p>
