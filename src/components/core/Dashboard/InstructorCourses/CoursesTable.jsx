@@ -37,7 +37,7 @@ export default function CoursesTable({ courses, setCourses }) {
     setLoading(false)
   }
 
-  // console.log("All Course ", courses)
+  console.log("All Course ", courses)
 
   return (
     <>
